@@ -1,7 +1,6 @@
 const winston = require('winston');
 require('winston-daily-rotate-file');
 
-
 const level = process.env.LOG_LEVEL || 'debug';
 
 const logger = new winston.Logger({

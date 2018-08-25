@@ -9,6 +9,15 @@ const logger = require('./api/utils/logger');
 const routes = require('./api/routes');
 const cors = require('cors');
 
+const mongoose = require('mongoose');
+require('./api/models/City');
+require('./api/models/State');
+
+// mongoose instance connection url connection
+mongoose.Promise = global.Promise;
+var mongodbUri = process.env.MONGODB_URI || 'mongodb://localhost/zooxapi';
+mongoose.connect(mongodbUri);
+
 // Environment configuration
 // const env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 const port = process.env.PORT || 3000;
@@ -20,17 +29,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride());
 app.use(morgan('dev'));
 app.use(cors());
+
 // Create a server side router
 routes(app);
 
 // Handle internal errors
 app.use((err, req, res, next) => {
-  if (err.response && err.response.status) {
-    if (err.response.status === 500) {
-      logger.error('[WARNING] Error 500 in microservices!!');
-    }
-    return res.sendStatus(err.response.status);
-  }
   logger.info(err.stack);
   return res.sendStatus(500);
 });

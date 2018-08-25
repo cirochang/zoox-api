@@ -1,7 +1,7 @@
 FROM node:carbon
 
 # Create app directory
-WORKDIR /usr/src/globo-store-backend
+WORKDIR /usr/src/zoox-api
 
 # Install app dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
