@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
+
 const State = mongoose.model('State');
 
-exports.create = function(req, res){
+exports.create = function (req, res) {
   const state = new State(req.body);
   state.save(function(err, state) {
     if (err)
@@ -19,7 +20,7 @@ exports.delete = function(req, res) {
 };
 
 exports.update = function(req, res) {
-  State.findOneAndUpdate({_id: req.params.stateId}, req.body, {new: true}, function(err, demand) {
+  State.findByIdAndUpdate(req.params.stateId, req.body, function(err, state) {
     if (err)
       return res.send(400, err);
     return res.json(state);
@@ -31,5 +32,13 @@ exports.show_all = function(req, res) {
     if (err)
       return res.send(400, err);
     return res.json(states);
+  });
+};
+
+exports.show = function(req, res) {
+  State.findById(req.params.stateId, function(err, state) {
+    if(err)
+      return res.send(400, err);
+    return res.json(state);
   });
 };

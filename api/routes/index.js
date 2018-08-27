@@ -1,6 +1,7 @@
 const { Router } = require('express');
 
 module.exports = function(app) {
+  const auth = require('../controllers/Auth');
   const state = require('../controllers/StateController');
   const city = require('../controllers/CityController');
 
@@ -9,19 +10,21 @@ module.exports = function(app) {
 
   // STATES
   apiV1.route('/states')
-    .get(state.show_all)
-    .post(state.create);
+    .get(auth.authorize, state.show_all)
+    .post(auth.authorize, state.create);
 
   apiV1.route('/states/:stateId')
-    .delete(state.delete)
-    .put(state.update);
+    .get(auth.authorize, state.show)
+    .delete(auth.authorize, state.delete)
+    .put(auth.authorize, state.update);
 
   // CITIES
   apiV1.route('/cities')
-    .get(city.show_all)
-    .post(city.create);
+    .get(auth.authorize, city.show_all)
+    .post(auth.authorize, city.create);
 
   apiV1.route('/cities/:cityId')
-    .delete(city.delete)
-    .put(city.update);
+    .get(auth.authorize, city.show)
+    .delete(auth.authorize, city.delete)
+    .put(auth.authorize, city.update);
 };

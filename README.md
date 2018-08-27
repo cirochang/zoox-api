@@ -1,4 +1,4 @@
-# globo-store backend
+# Zoox backend
 
 > A node crud api proposed by Zoox.
 
