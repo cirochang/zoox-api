@@ -22,11 +22,3 @@ sudo service mongod start
 # serve with hot reload at localhost:3000
 npm run start
 ```
-
-## Running in a docker container
-``` bash
-# build the docker image
-docker build -t <some name> .
-# run the image
-docker run -p 3000:3000 -d <some name>
-```
