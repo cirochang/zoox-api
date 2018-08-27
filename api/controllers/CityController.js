@@ -19,7 +19,7 @@ exports.delete = function(req, res) {
 };
 
 exports.update = function(req, res) {
-  City.findOneAndUpdate({_id: req.params.cityId}, req.body, {new: true}, function(err, demand) {
+  City.findByIdAndUpdate(req.params.cityId, req.body, function(err, city) {
     if (err)
       return res.send(400, err);
     return res.json(city);
@@ -31,5 +31,13 @@ exports.show_all = function(req, res) {
     if (err)
       return res.send(400, err);
     return res.json(cities);
+  });
+};
+
+exports.show = function(req, res) {
+  City.findById(req.params.cityId, function(err, city) {
+    if(err)
+      return res.send(400, err);
+    return res.json(city);
   });
 };
